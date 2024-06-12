@@ -10,6 +10,7 @@ const font = Poppins({
 
 const Header = () => {
     return (
+        <div className="max-w-screen-xl m-auto">
         <div className="flex px-5 pt-10 items-center justify-between">
             <div className="flex items-center">
                 <div className="flex cursor-pointer">
@@ -32,6 +33,7 @@ const Header = () => {
             <div className="">
                 <User  className="h-4 w-4 ml-5 text-zinc-400 hover:text-red-400 sm:h-5 sm:w-5" />
             </div>
+        </div>
         </div>
     )
 }
