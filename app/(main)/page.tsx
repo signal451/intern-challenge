@@ -1,13 +1,15 @@
+import CommandNote from "./_components/Command"
 import MonkeyTyperInput from "./_components/Input"
 
 const monkeyPage = () => {
     return (
-        // I need my textbox right center of the screensize or else this is stupid
-        <div className="layout flex flex-col items-center pt-40 px-5">
+        <div className="flex flex-col pb-20 h-full my-auto px-5">
            {/* These are shortkey commands */}
+          <div className="flex">
           <MonkeyTyperInput/>
-          <div className="text-center">
-
+          </div>
+          <div className="mt-8 text-center justify-center items-center flex">
+            <CommandNote/>
           </div>
         </div>
     )

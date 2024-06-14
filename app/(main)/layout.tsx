@@ -3,9 +3,9 @@ import Header from "../_componens/Header"
 
 const monkeyLayout = ({children} : {children : ReactNode}) => {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <Header/>
-            <main className="max-w-screen-xl m-auto w-full">
+            <main className="flex flex-col flex-grow max-w-screen-xl mx-auto w-full">
                 {children}
             </main>
         </div>

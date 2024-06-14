@@ -7,9 +7,13 @@ import useTypingGame, {
 
 
 const MonkeyTyperInput = () => {
-    let text = "It was thought advisable for me to have my examinations in a room by myself, because the noise of the typewriter might disturb the other girls."
+    let text = "It was thought advisable for me to have my examinations in a room by myself, because the noise of the typewriter might disturb the other girls. It was thought advisable for me to have my examinations in a room by myself, because the noise of the typewriter might disturb the other girls"
 
     const [inputSentences, setInputSentences] = useState(() => '');
+
+    // what's the purpose of this letterElements ? 
+    // thoughts: it's because of the pointer ? 
+    const letterElements = useRef<HTMLDivElement>(null);
 
     const {
         states: {
@@ -39,7 +43,8 @@ const MonkeyTyperInput = () => {
         }
         if (key.length === 1) {
             insertTyping(key);
-            console.log("insert");
+            console.log("insert"); 
+            {/* it just fucking invisible lmaooo that's why we need to focus on the element crazy */}
         }
     };
 
@@ -63,7 +68,7 @@ const MonkeyTyperInput = () => {
     return (
         <div className="relative w-full max-w-[1280px]">
             <div className="pb-3">
-                <span className="text-2xl text-red-500">   </span>
+                <span className="text-2xl text-red-500"> 15  </span>
             </div>
             {/* if text box is clicked focus on the input */}
             <div className="relative z-40 h-[140px] w-full text-2xl outline-none">
@@ -86,31 +91,30 @@ const MonkeyTyperInput = () => {
                     }}
                 />
 
-
-
                 {/* blur kind of stuff is here */}
-
-                <div className="">
+                <div className="absolute top-0 left-0 mb-4 h-full w-full overflow-hidden text-justify leading-relaxed tracking-wide transition-all duration-200">
+                <div className="" ref={letterElements}>
                     {text.split("").map((char: string, index: number) => {
                         let state = charsState[index];
                         let color =
                             state === CharStateType.Incomplete
                                 ? "text-zinc-500"
                                 : state === CharStateType.Correct
-                                    ? "text-amber-200"
-                                    : "text-zinc-500 border-b-2 border-red-600";
+                                    ? "text-amber-50"
+                                    : "text-[#e64553] border-b-2 border-[#d20f39]";
                         return (
                             <span
                                 key={char + index}
                                 className={`${color} ${state === 0 &&
                                     index < currIndex &&
-                                    'border-b-2 border-red-600 text-zinc-500'
+                                    'border-b-2 border-[#d20f39]'
                                     }`}
                             >
                                 {char}
                             </span>
                         );
                     })}
+                </div>
                 </div>
 
 
