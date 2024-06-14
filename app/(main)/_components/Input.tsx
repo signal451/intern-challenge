@@ -7,20 +7,23 @@ import useTypingGame, {
 
 
 const MonkeyTyperInput = () => {
-    let text = "The quick brown fox jumps over the lazy dog";
+    let text = "It was thought advisable for me to have my examinations in a room by myself, because the noise of the typewriter might disturb the other girls."
+
+    const [inputSentences, setInputSentences] = useState(() => '');
+
     const {
-      states: {
-        charsState,
-        length,
-        currIndex,
-        currChar,
-        correctChar,
-        errorChar,
-        phase,
-        startTime,
-        endTime
-      },
-      actions: { insertTyping, resetTyping, deleteTyping }
+        states: {
+            charsState,
+            length,
+            currIndex,
+            currChar,
+            correctChar,
+            errorChar,
+            phase,
+            startTime,
+            endTime
+        },
+        actions: { insertTyping, resetTyping, deleteTyping }
     } = useTypingGame(text);
 
 
@@ -40,6 +43,22 @@ const MonkeyTyperInput = () => {
         }
     };
 
+    const handleKeyDown = (letter: string) => {
+        if (letter === 'Backspace') {
+            //   const spanref: any = letterElements?.current?.children[currIndex];
+            //   const top = spanref?.offsetTop - 2;
+
+            //   if (top < 0) {
+            //     return;
+            //   }
+            deleteTyping(false)
+            return
+        } else if (letter.length === 1) {
+            insertTyping(letter)
+            return
+        }
+    };
+
 
     return (
         <div className="relative w-full max-w-[1280px]">
@@ -48,18 +67,30 @@ const MonkeyTyperInput = () => {
             </div>
             {/* if text box is clicked focus on the input */}
             <div className="relative z-40 h-[140px] w-full text-2xl outline-none">
-                {/* it just fucking invisible lmaooo that's why we need to focus on the element crazy */}
+                <input
+                    type='text'
+                    className='absolute left-0 top-0 z-20 h-full w-full cursor-default opacity-0'
+                    tabIndex={1}
+                    value={inputSentences}
+                    onChange={(e) => {
+                        const currentNewVal = e.target.value
+                        setInputSentences(currentNewVal)
+                        if (currentNewVal.length < inputSentences.length) {
+                            handleKeyDown("Backspace");
+                          } else {
+                            const char = currentNewVal.slice(-1);
+                            if (char) {
+                              handleKeyDown(char);
+                            }
+                          }
+                    }}
+                />
+
+
 
                 {/* blur kind of stuff is here */}
 
-                <div
-                    className="typing-test"
-                    onKeyDown={(e) => {
-                        handleKey(e.key);
-                        e.preventDefault();
-                    }}
-                    tabIndex={0}
-                >
+                <div className="">
                     {text.split("").map((char: string, index: number) => {
                         let state = charsState[index];
                         let color =
