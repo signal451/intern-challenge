@@ -1,28 +1,26 @@
 "use client"
 import { cn } from "@/lib/utils";
-import React, { Component, ComponentPropsWithRef, useEffect, useMemo, useRef, useState } from "react"
+import React, { ComponentPropsWithRef, useEffect, useRef, useState } from "react"
 import { Mouse } from "lucide-react";
-import useTypingGame, {
-    CharStateType,
-    PhaseType
-} from "react-typing-game-hook";
+import useTypingGame, {CharStateType} from "react-typing-game-hook";
 
 type TypingInputProps = {
     text: string;
     time: string;
 } & ComponentPropsWithRef<'input'>
 
-
 const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
     ({ text, time }, ref) => {
-        const [inputSentences, setInputSentences] = useState(() => '');
-        // what's the purpose of this letterElements ? 
-        // thoughts: it's because of the pointer ? 
-        const letterElements = useRef<HTMLDivElement>(null);
+        const [inputSentences, setInputSentences] = useState(() => '')
+        const letterElements = useRef<HTMLDivElement>(null)
 
-        // important shit 
+        // core states
         const [isFocused, setIsFocused] = useState(() => true)
-        const [margin, setMargin] = useState(() => 0);
+        const [margin, setMargin] = useState(() => 0)
+
+        //time
+        const [duration, setDuration] = useState(() => 0)
+        const [timeLeft, setTimeLeft] = useState(() => parseInt(time))
 
         const {
             states: {
@@ -36,48 +34,43 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                 startTime,
                 endTime
             },
-            actions: { insertTyping, resetTyping, deleteTyping }
+            actions: { insertTyping, resetTyping, deleteTyping, endTyping }
         } = useTypingGame(text);
-
-        // useEffect(() => {
-        //     if (letterElements.current) {
-        //         const currentElement = letterElements.current.children[currIndex];
-        //         if (currentElement) {
-        //             currentElement.scrollIntoView({
-        //                 behavior: "smooth",
-        //                 block: "nearest",
-        //                 inline: "nearest"
-        //             });
-        //         }
-        //     }
-        // }, [currIndex])
 
         useEffect(() => {
             if (currIndex !== -1 && letterElements.current) {
-                const spanref: any = letterElements.current.children[currIndex];        
+                const spanref: any = letterElements.current.children[currIndex];
                 const top = spanref.offsetTop - 2;
                 if (top > 60) {
                     setMargin(margin => margin + 1)
                 }
             }
-          }, [currIndex]);
+        }, [currIndex]);
 
-    
-
-        const position = useMemo(() => {
-            if (currIndex !== -1 && letterElements.current) {
-                const spanref: any = letterElements.current.children[currIndex]
-                const left = spanref.offsetLeft + spanref.offsetWidth - 2
-                const top = spanref.offsetTop - 2
-                if (top > 60) {
-                    setMargin((margin) => margin + 1);
-                }
+        useEffect(() => {
+            const timerInterval = setInterval(() => {
+              if (startTime) {
+                setTimeLeft((timeLeft) => {
+                  if (timeLeft === 1) {
+                    clearInterval(timerInterval);
+                    endTyping();
+                  }
+                  return parseInt(time) - Math.floor((Date.now() - startTime) / 1000);
+                });
+              }
+            }, 1000);
+            if (phase === 2) {
+              clearInterval(timerInterval);
             }
-        }, [currIndex])
+      
+            return () => clearInterval(timerInterval);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+          }, [startTime, phase]);
+
         
 
 
-        const handleKeyDown = (letter: string) => {
+        const handleKeyPress = (letter: string) => {
             if (letter === 'Backspace') {
                 deleteTyping(false)
                 return
@@ -87,11 +80,10 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
             }
         };
 
-
         return (
             <div className="relative w-full max-w-[1280px]">
                 <div className="pb-3 px-2">
-                    <span className="text-2xl text-red-500"> 15  </span>
+                    <span className="text-2xl text-red-500"> {timeLeft} </span>
                 </div>
                 {/* if text box is clicked focus on the input */}
                 <div className="relative z-40 h-[140px] w-full text-3xl outline-none"
@@ -113,11 +105,11 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                             const currentNewVal = e.target.value
                             setInputSentences(currentNewVal)
                             if (currentNewVal.length < inputSentences.length) {
-                                handleKeyDown("Backspace");
+                                handleKeyPress("Backspace");
                             } else {
                                 const char = currentNewVal.slice(-1);
                                 if (char) {
-                                    handleKeyDown(char);
+                                    handleKeyPress(char);
                                 }
                             }
                         }}
@@ -167,12 +159,15 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                                         {char}
                                         {index === currIndex && (
                                             <span className="inline-block bg-[#e64553] w-0.5 h-6 animate-pulse duration-1000 ml-0.5"></span>
+                                            
                                         )}
+
                                     </span>
                                 );
                             })}
                         </div>
                     </div>
+                    
                 </div>
             </div>
         )

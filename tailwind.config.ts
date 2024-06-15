@@ -22,7 +22,7 @@ const config = {
         mono: ['var(--font-firacode)']
       },
       fontSize: {
-        sm: '0.5rem',
+        sm: '0.875rem',
         base: '1rem',
         xl: '1.25rem',
         '2xl': '1.563rem',
