@@ -1,6 +1,6 @@
 "use client"
 import { cn } from "@/lib/utils";
-import React, { Component, ComponentPropsWithRef, useMemo, useRef, useState } from "react"
+import React, { Component, ComponentPropsWithRef, useEffect, useMemo, useRef, useState } from "react"
 import { Mouse } from "lucide-react";
 import useTypingGame, {
     CharStateType,
@@ -10,21 +10,20 @@ import useTypingGame, {
 type TypingInputProps = {
     text: string;
     time: string;
- } & ComponentPropsWithRef<'input'>
+} & ComponentPropsWithRef<'input'>
 
 
 const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
-    ({text, time}, ref) => {
+    ({ text, time }, ref) => {
         const [inputSentences, setInputSentences] = useState(() => '');
-        const [margin, setMargin] = useState(() => 0);
-    
         // what's the purpose of this letterElements ? 
         // thoughts: it's because of the pointer ? 
         const letterElements = useRef<HTMLDivElement>(null);
-    
+
         // important shit 
-        const [isFocused, setIsFocused] = useState(() => false)
-    
+        const [isFocused, setIsFocused] = useState(() => true)
+        const [margin, setMargin] = useState(() => 0);
+
         const {
             states: {
                 charsState,
@@ -39,55 +38,47 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
             },
             actions: { insertTyping, resetTyping, deleteTyping }
         } = useTypingGame(text);
-    
-    
-        const handleKey = (key: any) => {
-            if (key === "Escape") {
-                resetTyping();
-                console.log("reset");
-                return;
-            }
-            if (key === "Backspace") {
-                deleteTyping(false);
-                return;
-            }
-            if (key.length === 1) {
-                insertTyping(key);
-                console.log("insert");
-                {/* it just fucking invisible lmaooo that's why we need to focus on the element crazy */ }
-            }
-        };
-    
-        const pos = useMemo(() => {
+
+        // useEffect(() => {
+        //     if (letterElements.current) {
+        //         const currentElement = letterElements.current.children[currIndex];
+        //         if (currentElement) {
+        //             currentElement.scrollIntoView({
+        //                 behavior: "smooth",
+        //                 block: "nearest",
+        //                 inline: "nearest"
+        //             });
+        //         }
+        //     }
+        // }, [currIndex])
+
+        useEffect(() => {
             if (currIndex !== -1 && letterElements.current) {
-                const spanref: any = letterElements.current.children[currIndex];
-                const left = spanref.offsetLeft + spanref.offsetWidth - 2;
+                const spanref: any = letterElements.current.children[currIndex];        
                 const top = spanref.offsetTop - 2;
                 if (top > 60) {
-                    setMargin((margin) => margin + 1);
-                    return {
-                        left,
-                        top: top / 2,
-                    };
+                    setMargin(margin => margin + 1)
                 }
-                return { left, top };
-            } else {
-                return {
-                    left: -2,
-                    top: 2,
-                };
             }
-        }, [currIndex]);
+          }, [currIndex]);
+
     
-    
+
+        const position = useMemo(() => {
+            if (currIndex !== -1 && letterElements.current) {
+                const spanref: any = letterElements.current.children[currIndex]
+                const left = spanref.offsetLeft + spanref.offsetWidth - 2
+                const top = spanref.offsetTop - 2
+                if (top > 60) {
+                    setMargin((margin) => margin + 1);
+                }
+            }
+        }, [currIndex])
+        
+
+
         const handleKeyDown = (letter: string) => {
             if (letter === 'Backspace') {
-                //   const spanref: any = letterElements?.current?.children[currIndex];
-                //   const top = spanref?.offsetTop - 2;
-    
-                //   if (top < 0) {
-                //     return;
-                //   }
                 deleteTyping(false)
                 return
             } else if (letter.length === 1) {
@@ -95,11 +86,11 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                 return
             }
         };
-    
-    
+
+
         return (
             <div className="relative w-full max-w-[1280px]">
-                <div className="pb-3">
+                <div className="pb-3 px-2">
                     <span className="text-2xl text-red-500"> 15  </span>
                 </div>
                 {/* if text box is clicked focus on the input */}
@@ -107,8 +98,8 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                     onClick={() => {
                         if (ref != null && typeof ref !== 'function') {
                             ref?.current?.focus();
-                          }
-                          setIsFocused(true);
+                        }
+                        setIsFocused(true);
                     }}>
                     <input
                         type='text'
@@ -130,6 +121,7 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                                 }
                             }
                         }}
+                        autoFocus
                     />
                     <div
                         className={cn(
@@ -153,19 +145,9 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                         <Mouse className='mx-2 scale-x-[-1] text-[#dd7878]' />
                         or press any key to focus
                     </span>
-    
-                    {/* blur kind of stuff is here */}
-                    <div className={cn("absolute top-0 left-0 mb-4 h-full w-full overflow-hidden text-justify leading-relaxed tracking-tighter transition-all duration-200", { "opacity-40 blur-sm": !isFocused })}>
-                        <div ref={letterElements}
-                            style={
-                                margin > 0
-                                    ? {
-                                        marginTop: -(margin * 39),
-                                    }
-                                    : {
-                                        marginTop: 0,
-                                    }
-                            }>
+
+                    <div className={cn("absolute top-0 left-0 mb-4 h-full w-full overflow-hidden text-justify leading-relaxed tracking-tighter transition-all duration-200 px-2", { "opacity-40 blur-sm": !isFocused })}>
+                        <div ref={letterElements} style={{ marginTop: -margin * 20 }}>
                             {text.split("").map((char: string, index: number) => {
                                 let state = charsState[index];
                                 let color =
@@ -183,6 +165,9 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                                             }`}
                                     >
                                         {char}
+                                        {index === currIndex && (
+                                            <span className="inline-block bg-[#e64553] w-0.5 h-6 animate-pulse duration-1000 ml-0.5"></span>
+                                        )}
                                     </span>
                                 );
                             })}
@@ -195,5 +180,4 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
 )
 
 MonkeyTyperInput.displayName = "MonkeyTyperInput"
-
 export default MonkeyTyperInput

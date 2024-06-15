@@ -4,7 +4,8 @@ import MonkeyTyperInput from "./Input"
 import { RotateCw } from "lucide-react"
 
 const TypeSectionBox = () => {
-    let temp = "When she didn't like a guy who was trying to pick her up, she started using sign language."
+    let temp = "The newly planted trees were held up by wooden frames in hopes they could survive the next storm. The newly planted trees were held up by wooden frames in hopes they could survive the next storm. The newly planted trees were held up by wooden frames in hopes they could survive the next storm."
+
     const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>
     return (
         <>
