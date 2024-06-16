@@ -3,7 +3,7 @@ import CommandNote from "./_components/Command"
 
 const monkeyPage = () => {
     return (
-        <div className="flex flex-col pb-20 h-full my-auto px-5 md:px-20">
+        <div className="flex flex-col pb-20 h-full my-auto px-5 md:px-10">
            {/* These are shortkey commands */}
           <div className="">
          <TypeSectionBox/>

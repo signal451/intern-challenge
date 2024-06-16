@@ -81,13 +81,13 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
         };
 
         return (
-            <div className="relative max-w-[950px] mx-auto">
+            <div className="relative w-full">
                 <div className="pb-3 px-2">
                     <span className="text-xl text-red-500"> {timeLeft} </span>
                     <span className="text-xl text-red-500"> 45wpm </span>
                 </div>
                 {/* if text box is clicked focus on the input */}
-                <div className="relative z-40 h-[140px] w-full text-2xl outline-none"
+                <div className="relative z-40 h-[130px] w-full text-2xl outline-none"
                     onClick={() => {
                         if (ref != null && typeof ref !== 'function') {
                             ref?.current?.focus();
