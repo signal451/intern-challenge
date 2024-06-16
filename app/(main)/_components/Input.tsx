@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import React, { ComponentPropsWithRef, useEffect, useRef, useState } from "react"
 import { Mouse } from "lucide-react";
 import useTypingGame, {CharStateType} from "react-typing-game-hook";
+import { start } from "repl";
 
 type TypingInputProps = {
     text: string;
@@ -68,11 +69,17 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
 
           useEffect(() => {
             if (phase === 1 && startTime) {
-                const wpm = Math.round((correctChar / 5) / (parseInt(time) / 60))
-                setUserWpm(wpm)
+                const  passedTime = parseInt(time) - timeLeft
+                if (passedTime > 0) {
+                    const wpm = Math.round((correctChar / 5) / (passedTime / 60))
+                    setUserWpm(wpm)
+                }
+                else {
+                    setUserWpm(0)
+                }
+                
             }
-          }, [correctChar, phase, startTime, time])
-
+          }, [correctChar, startTime, time, timeLeft, phase ])
 
         const handleKeyPress = (letter: string) => {
             if (letter === 'Backspace') {
