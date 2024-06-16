@@ -13,14 +13,13 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
     ({ text, time }, ref) => {
         const [inputSentences, setInputSentences] = useState(() => '')
         const letterElements = useRef<HTMLDivElement>(null)
-
         // core states
         const [isFocused, setIsFocused] = useState(() => true)
         const [margin, setMargin] = useState(() => 0)
-
         //time
-        const [duration, setDuration] = useState(() => 0)
         const [timeLeft, setTimeLeft] = useState(() => parseInt(time))
+        //wpm 
+        const [userWpm, setUserWpm] = useState(() => 0)
 
         const {
             states: {
@@ -67,7 +66,12 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
             // eslint-disable-next-line react-hooks/exhaustive-deps
           }, [startTime, phase]);
 
-        
+          useEffect(() => {
+            if (phase === 1 && startTime) {
+                const wpm = Math.round((correctChar / 5) / (parseInt(time) / 60))
+                setUserWpm(wpm)
+            }
+          }, [correctChar, phase, startTime, time])
 
 
         const handleKeyPress = (letter: string) => {
@@ -84,7 +88,7 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
             <div className="relative w-full">
                 <div className="pb-3 px-2">
                     <span className="text-xl text-red-500"> {timeLeft} </span>
-                    <span className="text-xl text-red-500"> 45wpm </span>
+                    <span className="text-xl text-red-500 pl-3"> {userWpm} wpm </span>
                 </div>
                 {/* if text box is clicked focus on the input */}
                 <div className="relative z-40 h-[130px] w-full text-2xl outline-none"
@@ -134,9 +138,9 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                             { 'text-zinc-100 opacity-100 ': !isFocused }
                         )}
                     >
-                        Click
-                        <Mouse className='mx-2 scale-x-[-1] text-[#dd7878]' />
-                        or press any key to focus
+                        Click 
+                        <Mouse className='mx-2 scale-x-[-1] text-[#dd7878] animate-bounce' />
+                        here or press any key to focus
                     </span>
 
                     <div className={cn("absolute top-0 left-0 mb-4 h-full w-full overflow-hidden text-justify leading-relaxed tracking-tighter transition-all duration-200 px-2", { "opacity-40 blur-sm": !isFocused })}>
@@ -162,13 +166,11 @@ const MonkeyTyperInput = React.forwardRef<HTMLInputElement, TypingInputProps>(
                                             <span className="inline-block bg-[#e64553] w-0.5 h-6 animate-pulse duration-1000 ml-0.5"></span>
                                             
                                         )}
-
                                     </span>
                                 );
                             })}
                         </div>
                     </div>
-                    
                 </div>
             </div>
         )

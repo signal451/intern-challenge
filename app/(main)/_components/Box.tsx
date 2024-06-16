@@ -10,7 +10,7 @@ const TypeSectionBox = () => {
     const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>
     return (
         <>
-        <MonkeyTyperInput ref={inputRef} text={temp} time={"300"}/>
+        <MonkeyTyperInput ref={inputRef} text={temp} time={"15"}/>
         <div className="flex items-center justify-center pt-10 sm:mt-5 md:pt-0"> 
         {/* <RotateCw className="text-zinc-400 hover:text-[#e64553]"/> */}
         <Button variant={"ghost"} size={"icon"} className="hover:bg-transparent" onClick={() => {
