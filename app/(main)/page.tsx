@@ -8,9 +8,9 @@ const monkeyPage = () => {
           <div className="">
          <TypeSectionBox/>
           </div>
-          <div className="mt-8 text-center justify-center items-center flex">
+          {/* <div className="mt-8 text-center justify-center items-center flex">
             <CommandNote/>
-          </div>
+          </div> */}
         </div>
     )
 }
