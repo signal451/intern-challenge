@@ -8,7 +8,6 @@ const InputWrapper = async () => {
    
     return (
         <>
-            {/* <MonkeyTyperInput/> */}
             <TypeSection/>
             <InitQuotes quotes={data[0]} />
         </>

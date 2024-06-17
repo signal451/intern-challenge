@@ -8,7 +8,7 @@ import { useTyperacerState } from "@/lib/hooks/useData";
 
 const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
     ({}, ref) => {
-    // load data prop 
+    // load data
     const {quotes, time} = useTyperacerState((state) => state)
 
     const [inputSentences, setInputSentences] = useState(() => '')
@@ -90,10 +90,11 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
     };
 
     useEffect(() => {
-        setMargin(0);
-        setTimeLeft(parseInt(time));
-        endTyping();
-        resetTyping();
+        setUserWpm(0)
+        setMargin(0)
+        setTimeLeft(parseInt(time))
+        endTyping()
+        resetTyping()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [quotes.content, time]);
 
@@ -190,5 +191,4 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
 )
 
 MonkeyTyperInput.displayName = "MonkeyTyperInput"
-
 export default MonkeyTyperInput
