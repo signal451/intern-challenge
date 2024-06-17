@@ -18,7 +18,7 @@ const Header = () => {
                             <Image src={"/mezorn.png"} width={30} height={30} alt="mezorn logo" priority />
                         </div>
                         <div className="relative hidden sm:block sm:pl-3">
-                            <span className={cn("text-xs absolute text-red-500 -top-1 left-3 ", font.className)}> internship challenge </span>
+                            <span className={cn("text-xs absolute text-red-500 -top-2 left-3 ", font.className)}> internship challenge </span>
                             <p className={cn("font-medium text-3xl text-zinc-200 hover:text-zinc-400", font.className)}> monkeytype </p>
                         </div>
 
