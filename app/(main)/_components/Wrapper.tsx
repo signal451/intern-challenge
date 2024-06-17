@@ -1,6 +1,6 @@
 import InitQuotes from "@/lib/store/initData"
-import MonkeyTyperInput from "./Input"
 import fetchData from "../_lib/data"
+import TypeSection from "./TypeSection"
 
 
 const InputWrapper = async () => {
@@ -8,7 +8,8 @@ const InputWrapper = async () => {
    
     return (
         <>
-            <MonkeyTyperInput/>
+            {/* <MonkeyTyperInput/> */}
+            <TypeSection/>
             <InitQuotes quotes={data[0]} />
         </>
     )

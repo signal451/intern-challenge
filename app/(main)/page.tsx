@@ -1,4 +1,4 @@
-import InputWrapper from "./_components/Quotes"
+import InputWrapper from "./_components/Wrapper"
 
 const monkeyPage = () => {
 

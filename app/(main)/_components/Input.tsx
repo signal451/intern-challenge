@@ -4,10 +4,10 @@ import useTypingGame, { CharStateType } from "react-typing-game-hook";
 import { Mouse } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTyperacerState } from "@/lib/hooks/useData";
-import RestartButton from "./RestartButton";
 
 
-const MonkeyTyperInput = () => {
+const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
+    ({}, ref) => {
     // load data prop 
     const {quotes, time} = useTyperacerState((state) => state)
 
@@ -19,7 +19,6 @@ const MonkeyTyperInput = () => {
     const [timeLeft, setTimeLeft] = useState(() => parseInt("15"))
     //wpm 
     const [userWpm, setUserWpm] = useState(() => 0)
-    const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>
 
     const {
         states: {
@@ -90,6 +89,14 @@ const MonkeyTyperInput = () => {
         }
     };
 
+    useEffect(() => {
+        setMargin(0);
+        setTimeLeft(parseInt(time));
+        endTyping();
+        resetTyping();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [quotes.content, time]);
+
     return (
         <div className="relative w-full">
             <div className="pb-3 px-2">
@@ -99,8 +106,8 @@ const MonkeyTyperInput = () => {
             {/* if text box is clicked focus on the input */}
             <div className="relative z-40 h-[130px] w-full text-2xl outline-none"
                 onClick={() => {
-                    if (inputRef != null && typeof inputRef !== 'function') {
-                        inputRef?.current?.focus();
+                    if (ref != null && typeof ref !== 'function') {
+                        ref?.current?.focus();
                     }
                     setIsFocused(true);
                 }}>
@@ -108,7 +115,7 @@ const MonkeyTyperInput = () => {
                     type='text'
                     className='absolute left-0 top-0 z-20 h-full w-full cursor-default opacity-0'
                     tabIndex={1}
-                    ref={inputRef}
+                    ref={ref}
                     value={inputSentences}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
@@ -146,7 +153,7 @@ const MonkeyTyperInput = () => {
                 >
                     Click
                     <Mouse className='mx-2 scale-x-[-1] text-[#dd7878] animate-bounce' />
-                    here or press any key to focus
+                    here to focus
                 </span>
 
                 <div className={cn("absolute top-0 left-0 mb-4 h-full w-full overflow-hidden text-justify leading-relaxed tracking-tighter transition-all duration-200 px-2", { "opacity-40 blur-sm": !isFocused })}>
@@ -170,7 +177,6 @@ const MonkeyTyperInput = () => {
                                     {char}
                                     {index === currIndex && (
                                         <span className="inline-block bg-[#e64553] w-0.5 h-6 animate-pulse duration-1000 ml-0.5"></span>
-
                                     )}
                                 </span>
                             );
@@ -178,10 +184,11 @@ const MonkeyTyperInput = () => {
                     </div>
                 </div>
             </div>
-            <RestartButton/>
         </div>
     )
 }
+)
 
+MonkeyTyperInput.displayName = "MonkeyTyperInput"
 
 export default MonkeyTyperInput
