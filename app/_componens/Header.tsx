@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Poppins } from "next/font/google"
-import { Crown, Settings, User } from "lucide-react"
+import { Crown, LogOut, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const font = Poppins({
@@ -24,11 +24,17 @@ const Header = () => {
 
                     </div>
                     <div>
-                        <Crown className="h-4 w-4 ml-5 text-zinc-400 hover:text-red-400 sm:h-5 sm:w-5" />
+                        <Crown className="h-4 w-4 ml-5 text-zinc-500 hover:text-zinc-200 sm:h-5 sm:w-5" />
                     </div>
                 </div>
-                <div className="">
-                    <User className="h-4 w-4 ml-5 text-zinc-400 hover:text-red-400 sm:h-5 sm:w-5" />
+                <div className="flex">
+                    <div className="flex cursor-pointer group ">
+                    <span className="text-sm text-zinc-500 group-hover:text-zinc-200">  Tugsuu.png </span>
+                    <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 group-hover:text-zinc-200" />
+                    </div>
+
+                    <LogOut className="h-4 w-4 ml-5 text-zinc-500 sm:h-5 sm:w-5 cursor-pointer hover:text-red-500"/>
+                    
                 </div>
             </div>
         </div>
