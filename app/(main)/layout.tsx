@@ -1,7 +1,8 @@
 import React, { ReactNode } from "react"
 import Header from "../_componens/Header"
 
-const monkeyLayout = ({children} : {children : ReactNode}) => {
+const monkeyLayout = async ({children} : {children : ReactNode}) => {
+
     return (
         <div className="flex flex-col min-h-screen">
             <Header/>
