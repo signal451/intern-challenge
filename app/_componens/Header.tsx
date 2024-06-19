@@ -1,7 +1,10 @@
+"use client"
+
 import Image from "next/image"
 import { Poppins } from "next/font/google"
 import { Crown, LogOut, User } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { supabaseBrowserClient } from "@/utils/supabase/client"
 
 const font = Poppins({
     subsets: ["latin"],
@@ -9,6 +12,18 @@ const font = Poppins({
 })
 
 const Header = () => {
+
+    const handleLogIn = async () => {
+        const supabase = supabaseBrowserClient()
+        await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              redirectTo: location.origin + "/auth/callback"
+            },
+          })
+    }
+
+
     return (
         <div className="max-w-screen-xl mx-auto w-full">
             <div className="flex px-5 pt-10 justify-between items-center ">
@@ -34,7 +49,7 @@ const Header = () => {
                     <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 group-hover:text-zinc-200" />
                     </div>
                     <LogOut className="h-4 w-4 ml-5 text-zinc-500 sm:h-5 sm:w-5 cursor-pointer hover:text-red-500"/> */}
-                    <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 hover:text-red-500" />
+                    <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 hover:text-red-500" onClick={handleLogIn}/>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import InputWrapper from "./_components/Wrapper"
 
-const monkeyPage = () => {
-
+const monkeyPage = async () => {
+  
     return (
         <div className="flex flex-col pb-20 h-full my-auto px-5 md:px-10">
           <InputWrapper/>
@@ -12,4 +12,4 @@ const monkeyPage = () => {
     )
 }
 
-export default monkeyPage
+export default monkeyPage 
