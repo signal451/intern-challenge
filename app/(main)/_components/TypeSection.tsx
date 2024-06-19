@@ -1,5 +1,5 @@
 "use client"
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import { Button } from "@/components/ui/button"
 import { useTyperacerState } from "@/lib/hooks/useData"
 import { RotateCw } from "lucide-react"
@@ -17,6 +17,19 @@ const TypeSection = () => {
     }
 
     const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+
+    React.useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Tab') {
+                handleRestart()
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown);
+        // Cleanup the event listener on component unmount
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     return (
         <>
