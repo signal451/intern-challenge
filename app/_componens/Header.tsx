@@ -28,13 +28,13 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="flex">
-                    <div className="flex cursor-pointer group ">
+                    {/* when user logged in show this shit  */}
+                    {/* <div className="flex cursor-pointer group ">
                     <span className="text-sm text-zinc-500 group-hover:text-zinc-200">  Tugsuu.png </span>
                     <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 group-hover:text-zinc-200" />
                     </div>
-
-                    <LogOut className="h-4 w-4 ml-5 text-zinc-500 sm:h-5 sm:w-5 cursor-pointer hover:text-red-500"/>
-                    
+                    <LogOut className="h-4 w-4 ml-5 text-zinc-500 sm:h-5 sm:w-5 cursor-pointer hover:text-red-500"/> */}
+                    <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 hover:text-red-500" />
                 </div>
             </div>
         </div>

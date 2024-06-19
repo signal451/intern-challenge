@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import { Fira_Code } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata } from "next"
+import { Fira_Code } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
+import "./globals.css"
 
 const firacode = Fira_Code({
   weight: ['400', '500', '600'],
@@ -37,6 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           {children}
+          <Toaster/>
         </ThemeProvider>
       </body>
     </html>
