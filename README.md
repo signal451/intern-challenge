@@ -4,14 +4,14 @@
 
 ### User requirement completion
 - [x] Get paragraph from external service
-- [ ] User can play as guest or registered player 
+- [x] User can play as guest or registered player 
 - [x] Typing speed indicator
 - [x] Error indicator
 - [ ] User can choose between time limited mode or infinite mode (infinite paragraphs)
 - [ ] Save user high-score
 - [ ] Show top 10 speedster leaderboard
-- [ ] Project should work consistently on different browsers
-- [ ] Deploy project using cloud service
+- [x] Project should work consistently on different browsers
+- [x] Deploy project using cloud service
 
 
 ### 🚀 How is the WPM calculated ? 
