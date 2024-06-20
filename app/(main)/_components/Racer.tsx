@@ -97,7 +97,7 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
       }, [quotes.content, time]);
 
     return (
-        <div className="relative w-full px-5">
+        <div className="max-w-screen-xl">
             <div className="pb-3 px-2">
                 <span className="text-xl text-red-500"> {timeLeft} </span>
                 <span className="text-xl text-red-500 pl-3"> {userWpm} wpm </span>

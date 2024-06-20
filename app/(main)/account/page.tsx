@@ -1,9 +1,11 @@
+import ProfileSection from "./_components/ProfileSection"
 
 
 const AccountPage = () => {
-    return (
-        <div>
 
+    return (
+        <div className="min-h-full px-5 pb-20">
+            <ProfileSection/>
         </div>
     )   
 }
