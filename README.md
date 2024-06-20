@@ -26,3 +26,5 @@ This makes the number of words easy to calculate. Simply count all typed entries
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
+### I won't lie this is beyond spaghetti code and only god knows it 💀
+![alt text](/asset/hamster.jpg)

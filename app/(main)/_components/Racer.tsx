@@ -8,9 +8,7 @@ import { useTyperacerState } from "@/lib/hooks/useData";
 
 const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
     ({}, ref) => {
-    // load data
     const {quotes, time} = useTyperacerState((state) => state)
-
     const [inputSentences, setInputSentences] = useState(() => '')
     const letterElements = useRef<HTMLDivElement>(null)
     const [isFocused, setIsFocused] = useState(() => true)

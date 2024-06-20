@@ -3,34 +3,30 @@ import { LogOut, User } from "lucide-react"
 import { supabaseBrowserClient } from "@/utils/supabase/client"
 import { useUserStore } from "@/lib/hooks/useUser"
 import { useRouter } from "next/navigation"
-import SignUpDialog from "./SignUpDialog"
 
 const HeaderItems = () => {
   const router = useRouter()
   const user = useUserStore((state) => state.user)
 
-  console.log("render");
-
-  const handleLogIn = async () => {
-    // const supabase = supabaseBrowserClient()
-    // await supabase.auth.signInWithOAuth({
-    //   provider: 'google',
-    //   options: {
-    //     queryParams: {
-    //       access_type: 'offline',
-    //       prompt: 'consent',
-    //     },
-    //     redirectTo: location.origin + "/auth/callback"
-    //   },
-    // })
-
-
-  }
 
   const handleLogOut = async () => {
     const supabase = supabaseBrowserClient()
     const { error } = await supabase.auth.signOut()
     router.refresh()
+  }
+
+  const handleSignUp = async () => {
+    const supabase = supabaseBrowserClient()
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+          queryParams: {
+              access_type: 'offline',
+              prompt: 'consent',
+          },
+          redirectTo: location.origin + "/auth/callback"
+      },
+  })
   }
 
   return (
@@ -46,7 +42,7 @@ const HeaderItems = () => {
         </>
         )
         : (
-         <SignUpDialog/>
+          <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 hover:text-red-500" onClick={handleSignUp}/>
         )
       }
     </div>

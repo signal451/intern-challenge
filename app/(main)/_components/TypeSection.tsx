@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useTyperacerState } from "@/lib/hooks/useData"
 import { RotateCw } from "lucide-react"
 import fetchData from "../_lib/data"
-import MonkeyTyperInput from './Input';
+import MonkeyTyperInput from './Racer';
 
 const TypeSection = () => {
 
@@ -18,7 +18,7 @@ const TypeSection = () => {
 
     const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Tab') {
                 handleRestart()
