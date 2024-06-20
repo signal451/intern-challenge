@@ -27,4 +27,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 
 ### Google OAuth and database managed on Supabase💀
-![alt text](/asset/Auth.png)
+![alt text](/asset/supabase.png)
