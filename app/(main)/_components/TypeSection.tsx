@@ -20,6 +20,7 @@ const TypeSection = () => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            
             if (event.key === 'Tab') {
                 handleRestart()
             }
