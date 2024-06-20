@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Fira_Code } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/sonner"
+import NextTopLoader from 'nextjs-toploader';
 import "./globals.css"
 
 const firacode = Fira_Code({
@@ -38,7 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           {children}
-          <Toaster/>
+          <NextTopLoader color="#FF6969"/>
         </ThemeProvider>
       </body>
     </html>

@@ -35,9 +35,9 @@ const HeaderItems = () => {
       {
         user ? (
           <>
-            <div className="flex cursor-pointer group ">
-              <Link href={'/account'} className="text-sm text-zinc-500 group-hover:text-red-500 outline-none">   {user.user_metadata['name']}   </Link>
-              <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 group-hover:text-red-500" />
+            <div className="flex cursor-pointer group justify-center ">
+              <Link href={'/account'} className="text-xs md:text-sm text-zinc-500 group-hover:text-red-500 outline-none">   {user.user_metadata['name']}   </Link>
+              <User className="h-4 w-4 ml-2 text-zinc-500 sm:h-5 sm:w-5 group-hover:text-red-500 hidden sm:block" />
             </div>
             <LogOut className="h-4 w-4 ml-5 text-zinc-500 sm:h-5 sm:w-5 cursor-pointer hover:text-red-500" onClick={handleLogOut} />
           </>

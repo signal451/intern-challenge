@@ -163,7 +163,7 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
                                 state === CharStateType.Incomplete
                                     ? "text-zinc-500"
                                     : state === CharStateType.Correct
-                                        ? "text-amber-50"
+                                        ? "text-white"
                                         : "text-[#e64553] border-b-2 border-[#d20f39]";
                             return (
                                 <span
