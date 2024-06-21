@@ -1,9 +1,9 @@
 import Image from "next/image"
 import { Poppins } from "next/font/google"
-import { Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import HeaderItems from "./Item"
 import Link from "next/link"
+import Leaderboard from "./Leaderboard"
 
 const font = Poppins({
     subsets: ["latin"],
@@ -28,7 +28,7 @@ const Header = () => {
 
                     </div>
                     <div>
-                        <Crown className="h-4 w-4 ml-5 text-zinc-500 hover:text-zinc-200 sm:h-5 sm:w-5" />
+                        <Leaderboard/>
                     </div>
                 </div>
                 <HeaderItems/>

@@ -1,5 +1,5 @@
 ## Internship challenge🌠
-![alt text](/asset/image.png)
+![alt text](/asset/demo.png)
 
 
 ### User requirement completion
@@ -28,3 +28,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Google OAuth and database managed on Supabase💀
 ![alt text](/asset/supabase.png)
+

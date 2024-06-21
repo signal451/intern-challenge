@@ -18,8 +18,6 @@ const AccountPage = () => {
     const user = useUserStore((state) => state.user)
     const profileImg = removeImageSize(user?.user_metadata.avatar_url)
 
-    console.log(user?.created_at);
-
     return (
         <div className="min-h-full px-5 pb-20">
             <div className="min-h-full">
