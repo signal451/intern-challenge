@@ -12,19 +12,13 @@ const removeImageSize = (url: string ): string => {
     return ''
 }
 
-// format localtimezone
-const formatTimeStamp = (timestamp: string) => {
-    if(timestamp) {
-        const date = new Date(timestamp);
-        return date.toLocaleDateString('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    }
-}
-
 
 const AccountPage = () => {
 
     const user = useUserStore((state) => state.user)
     const profileImg = removeImageSize(user?.user_metadata.avatar_url)
+
+    console.log(user?.created_at);
 
     return (
         <div className="min-h-full px-5 pb-20">
@@ -41,7 +35,7 @@ const AccountPage = () => {
                         />
                         <div className="pl-4">
                             <p className="font-medium text-xl"> {user?.user_metadata.full_name}  </p>
-                            <p className="text-xs text-zinc-600"> Joined 24 Mar 2024 </p>
+                            <p className="text-xs text-zinc-600"> Joined {new Date(user?.created_at || '').toDateString()}</p>
                         </div>
                     </div>
                 </div>

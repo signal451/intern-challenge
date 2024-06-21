@@ -16,7 +16,7 @@ import { toast } from "sonner";
 type WpmDataType = {
     accuracy: string | null;
     chars: string | null;
-    created_at: string;
+    created_at: string; 
     id: string;
     mode: string | null;
     user_id: string | null;
