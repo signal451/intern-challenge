@@ -4,6 +4,10 @@ import useTypingGame, { CharStateType } from "react-typing-game-hook";
 import { Mouse } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTyperacerState } from "@/lib/hooks/useData";
+import { useUserStore } from "@/lib/hooks/useUser";
+import { text } from "stream/consumers";
+import { supabaseBrowserClient } from "@/utils/supabase/client";
+import { toast } from "sonner";
 
 
 const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
@@ -17,6 +21,8 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
     const [timeLeft, setTimeLeft] = useState(() => parseInt("15"))
     //wpm 
     const [userWpm, setUserWpm] = useState(() => 0)
+    // userinfo 
+    const user = useUserStore((state) => state.user)   
 
     const {
         states: {
@@ -75,6 +81,26 @@ const MonkeyTyperInput =  React.forwardRef<HTMLInputElement>(
             }
 
         }
+
+        if(phase === 2 && startTime && endTime && user) {
+            const accuracy = (((correctChar - errorChar) / (currIndex + 1)) * 100).toFixed(2);
+           
+    
+            const insertData = async () => {
+                const supabase = supabaseBrowserClient()
+                const {data, error} = await supabase.from("tests").insert({user_id: user.id, wpm: userWpm.toString(), accuracy: accuracy, chars: quotes.length.toString(), mode: '15'})
+
+                if (error) {
+                    console.error(error.message)
+                    return toast.error("Failed to insert data into server", {
+                        description: new Date().toLocaleString(),
+                        position: 'top-center'
+                    })
+                }
+            }
+            insertData()
+        }
+
     }, [correctChar, startTime, time, timeLeft, phase])
 
     const handleKeyPress = (letter: string) => {

@@ -1,13 +1,7 @@
-"use client"
-import { useUserStore } from "@/lib/hooks/useUser"
 import Image from "next/image"
 
 
 const ProfileSection = () => {
-
-    // const user = useUserStore((state) => state.user)
-
-    // console.log(user?.user_metadata);
 
     return (
         <div className="min-h-full">
