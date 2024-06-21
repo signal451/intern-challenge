@@ -5,7 +5,6 @@ import { Mouse } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTyperacerState } from "@/lib/hooks/useData";
 import { useUserStore } from "@/lib/hooks/useUser";
-import { text } from "stream/consumers";
 import { supabaseBrowserClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 
