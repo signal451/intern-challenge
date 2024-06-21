@@ -9,7 +9,7 @@
 - [x] Error indicator
 - [ ] User can choose between time limited mode or infinite mode (infinite paragraphs)
 - [x] Save user high-score
-- [ ] Show top 10 speedster leaderboard
+- [x] Show top 10 speedster leaderboard
 - [x] Project should work consistently on different browsers
 - [x] Deploy project using cloud service
 
