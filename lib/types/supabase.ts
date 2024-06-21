@@ -39,9 +39,9 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "tests_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
+            foreignKeyName: "tests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -81,7 +81,17 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      leaderboard: {
+        Row: {
+          accuracy: string | null
+          avatar_url: string | null
+          chars: string | null
+          created_at: string | null
+          mode: string | null
+          wpm: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
